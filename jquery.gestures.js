@@ -38,10 +38,10 @@
 	var diffY = evEnd.changedTouches[0].clientY - evStart.touches[0].clientY;
 	var name = null;
 
-	if (Math.abs(diffY) * 0.8 > Math.abs(diffX)) { // Vertical
-	    name = diffY > 0 ? 'swipedown' : 'swipeup';
-	} else if (Math.abs(diffX) * 0.8 > Math.abs(diffY)) { // Horizontal
+	if (Math.abs(diffX) > 32 && Math.abs(diffX) * 0.8 > Math.abs(diffY)) { // Horizontal
 	    name = diffX > 0 ? 'swiperight' : 'swipeleft';
+	} else if (Math.abs(diffY) > 32 && Math.abs(diffY) * 0.8 > Math.abs(diffX)) { // Vertical
+	    name = diffY > 0 ? 'swipedown' : 'swipeup';
 	} // else diagnoal, we don't know if it is vertical or horizontal - do nothing
 
 	if (name) {
