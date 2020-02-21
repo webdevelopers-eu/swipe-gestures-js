@@ -18,3 +18,6 @@ $('#myBox').on('swipeleft swiperight', closeBox);
 ```
 
 You can see it in action on https://www.cyrex.tech
+
+## Usage
+Just include the script on the page and start listening to swipe events anywhere.
