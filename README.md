@@ -1,10 +1,18 @@
 # jquery-dna-gestures
-Simple swipeleft, swiperight, swipeup, swipedown event support that does not get confused by scroll, drag, select events. Include javascript and start listening to events on any element. Just 800 bytes long!
 
-Simple support for swipeleft, swiperight, swipeup, swipedown events.
+Adds support for swipe DOM events to your browser.
+* `swipeleft`
+* `swiperight`
+* `swipeup`
+* `swipedown`
 
-It fires swipeleft-N, swiperight-N, swipeup-N, swipedown-N where "N" is number of swipe fingers in case there is more then one. E.g. "swipeleft" event for one-finger swipe "swipeleft-2" event for two-finger swipe etc.
+## Highlights
 
-Example: $('#myBox').on('swipeleft swiperight', closeBox);
+* Scroll/drag/select events will never be confused with swipe gestures. 
+* Just 800 bytes long!
+* Support for multi-finger swipes. E.g. two finger swipes fire events `swiepleft-2`, `swiperight-2` and so on. 
 
-Features: Small, simple, does not get confused with dragging/scrolling/selecting text, not well tested.
+Example: 
+ $('#myBox').on('swipeleft swiperight', closeBox);
+
+You can see it in action on https://www.cyrex.tech
