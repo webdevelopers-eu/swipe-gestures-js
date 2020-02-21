@@ -13,6 +13,8 @@ Adds support for swipe DOM events to your browser.
 * Support for multi-finger swipes. E.g. two finger swipes fire events `swiepleft-2`, `swiperight-2` and so on. 
 
 Example: 
- $('#myBox').on('swipeleft swiperight', closeBox);
+``` 
+$('#myBox').on('swipeleft swiperight', closeBox);
+```
 
 You can see it in action on https://www.cyrex.tech
