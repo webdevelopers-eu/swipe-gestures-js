@@ -5,7 +5,7 @@
  * of swipe fingers in case there is more then one. E.g. "swipeleft" event for one-finger swipe
  * "swipeleft-2" event for two-finger swipe etc.
  *
- * Example: $('#myBox').on('swipeleft swiperight', closeBox);
+ * Example: element.addEventListener('swipeleft', closeBox);
  *
  * Features: Small, simple, does not get confused with dragging/scrolling/selecting text, not well tested.
  *
@@ -18,42 +18,52 @@
  */
 (function() {
     var evFirst = null;
-    var $scrollers = $();
+    var scrollers = [];
 
-    $(document)
-	.on('touchstart.gestures', function(ev) { // Start
-	    cancel(ev);
-	    evFirst = ev;
-	    $scrollers = $(ev.target).parents().addBack().on('scroll.gestures', cancel);
-	})
-	.on('touchcancel.gestures dragstart.gestures select.gestures', cancel)
-	.on('touchend.gestures', resolve); // Finish
+    document.addEventListener('touchstart', function(ev) {
+        cancel(ev);
+        evFirst = ev;
+        var target = ev.target;
+        while (target) {
+            scrollers.push(target);
+            target.addEventListener('scroll', cancel);
+            target = target.parentElement;
+        }
+    });
+
+    document.addEventListener('touchcancel', cancel);
+    document.addEventListener('dragstart', cancel);
+    document.addEventListener('select', cancel);
+    
+    document.addEventListener('touchend', resolve);
 
     function resolve(evEnd) {
-	var evStart = evFirst;
-	cancel(evEnd);
-	if (!evStart || !evStart.target) return;
+        var evStart = evFirst;
+        cancel(evEnd);
+        if (!evStart || !evStart.target) return;
 
-	var diffX = evEnd.changedTouches[0].clientX - evStart.touches[0].clientX;
-	var diffY = evEnd.changedTouches[0].clientY - evStart.touches[0].clientY;
-	var name = null;
+        var diffX = evEnd.changedTouches[0].clientX - evStart.touches[0].clientX;
+        var diffY = evEnd.changedTouches[0].clientY - evStart.touches[0].clientY;
+        var name = null;
 
-	if (Math.abs(diffX) > 32 && Math.abs(diffX) * 0.8 > Math.abs(diffY)) { // Horizontal
-	    name = diffX > 0 ? 'swiperight' : 'swipeleft';
-	} else if (Math.abs(diffY) > 32 && Math.abs(diffY) * 0.8 > Math.abs(diffX)) { // Vertical
-	    name = diffY > 0 ? 'swipedown' : 'swipeup';
-	} // else diagnoal, we don't know if it is vertical or horizontal - do nothing
+        if (Math.abs(diffX) > 32 && Math.abs(diffX) * 0.8 > Math.abs(diffY)) { // Horizontal
+            name = diffX > 0 ? 'swiperight' : 'swipeleft';
+        } else if (Math.abs(diffY) > 32 && Math.abs(diffY) * 0.8 > Math.abs(diffX)) { // Vertical
+            name = diffY > 0 ? 'swipedown' : 'swipeup';
+        } // else diagonal, we don't know if it is vertical or horizontal - do nothing
 
-	if (name) {
-	    $(evStart.target).trigger(name + (evStart.touches.length > 1 ? evStart.touches.length : ''));
-	}
+        if (name) {
+            const evName = name + (evStart.touches.length > 1 ? evStart.touches.length : '');
+            evStart.target.dispatchEvent(new CustomEvent(evName));
+        }
     }
 
     function cancel(ev) {
-	if (!evFirst) return;
-	evFirst = null;
-	$scrollers.off('scroll.gestures');
-	$scrollers = $();
+        if (!evFirst) return;
+        evFirst = null;
+        scrollers.forEach(function(target) {
+            target.removeEventListener('scroll', cancel);
+        });
+        scrollers = [];
     }
-
 })();
