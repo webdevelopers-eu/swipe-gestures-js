@@ -13,10 +13,11 @@ Adds support for swipe DOM events to your browser.
 * Support for multi-finger swipes. E.g. two finger swipes fire events `swiepleft-2`, `swiperight-2` and so on. 
 
 Example: 
-``` 
+```
+// With jQuery
 $('#myBox').on('swipeleft swiperight', closeBox);
 
-// Two-finger swipe
+// Two-finger swipe - without jQuery
 element.addEventListener('swipeleft-2', moveLeft);
 element.addEventListener('swiperight-2', moveRight);
 ```
