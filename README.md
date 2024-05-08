@@ -1,4 +1,4 @@
-# jquery-dna-gestures
+# Swipe Gestures
 
 Adds support for swipe DOM events to your browser.
 * `swipeleft`
