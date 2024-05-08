@@ -15,6 +15,10 @@ Adds support for swipe DOM events to your browser.
 Example: 
 ``` 
 $('#myBox').on('swipeleft swiperight', closeBox);
+
+// Two-finger swipe
+element.addEventListener('swipeleft-2', moveLeft);
+element.addEventListener('swiperight-2', moveRight);
 ```
 
 You can see it in action on https://www.cyrex.tech
