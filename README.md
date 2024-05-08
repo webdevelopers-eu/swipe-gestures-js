@@ -21,7 +21,5 @@ element.addEventListener('swipeleft-2', moveLeft);
 element.addEventListener('swiperight-2', moveRight);
 ```
 
-You can see it in action on https://www.cyrex.tech
-
 ## Usage
 Just include the script on the page and start listening to swipe events anywhere.
