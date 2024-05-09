@@ -5,6 +5,12 @@ Adds support for swipe DOM events to your browser.
 * `swiperight`
 * `swipeup`
 * `swipedown`
+* `swipeleft-N`
+* `swiperight-N`
+* `swipeup-N`
+* `swipedown-N`
+
+Where `N` is number of swiping fingers starting from 2. E.g. `swipeleft-3` Event represents three-finger swipe left.
 
 ## Highlights
 
